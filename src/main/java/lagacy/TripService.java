@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TripService {
-	public List<Trip> getTripsBy(User user) throws UserNotLoggedInException {
+	public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
 		List<Trip> tripList = new ArrayList<Trip>();
-		User loggedUser = UserSession.getInstace().getLoggedUser();
+		User loggedUser = getLoggedInUser();
 		
 		boolean isFriend = false;
 		if (loggedUser != null) {
@@ -25,5 +25,9 @@ public class TripService {
 		} else {
 			throw new UserNotLoggedInException();
 		}
+	}
+
+	private User getLoggedInUser() {
+		return UserSession.getInstace().getLoggedUser();
 	}
 }
