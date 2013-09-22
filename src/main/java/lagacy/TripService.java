@@ -27,7 +27,7 @@ public class TripService {
 		}
 	}
 
-	private User getLoggedInUser() {
+	protected User getLoggedInUser() {
 		return UserSession.getInstace().getLoggedUser();
 	}
 }
