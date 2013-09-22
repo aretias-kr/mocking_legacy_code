@@ -8,6 +8,7 @@ import java.util.List;
 import lagacy.Trip;
 import lagacy.TripService;
 import lagacy.User;
+import lagacy.UserBuilder;
 import lagacy.UserNotLoggedInException;
 
 import org.junit.Before;
@@ -42,10 +43,11 @@ public class TripServiceTest {
 	@Test
 	public void should_not_return_any_trips_when_users_are_not_friends()
 			throws Exception {
-		User friend = new User();
-		friend.addFriend(ANOTHER_USER);
-		friend.addTrip(TO_KOREA);
-
+		User friend = UserBuilder.aUser()
+				.friendsWith(ANOTHER_USER)
+				.withTrips(TO_KOREA)
+				.build();
+		
 		List<Trip> tripsByUser = tripService.getTripsByUser(friend);
 		assertThat(tripsByUser.size(), is(0));
 	}
@@ -53,12 +55,11 @@ public class TripServiceTest {
 	@Test
 	public void should_return_friend_trips_when_users_are_friends()
 			throws Exception {
-		User friend = new User();
-		friend.addFriend(ANOTHER_USER);
-		friend.addFriend(loggedInUser);
-
-		friend.addTrip(TO_KOREA);
-		friend.addTrip(TO_PARIS);
+		
+		User friend = UserBuilder.aUser()
+				.friendsWith(ANOTHER_USER, loggedInUser)
+				.withTrips(TO_KOREA, TO_PARIS)
+				.build();
 
 		List<Trip> tripsByUser = tripService.getTripsByUser(friend);
 		assertThat(tripsByUser.size(), is(2));
