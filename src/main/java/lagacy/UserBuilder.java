@@ -2,8 +2,8 @@ package lagacy;
 
 public class UserBuilder {
 
-	private User[] friends;
-	private Trip[] trips;
+	private User[] friends = new User[] {};
+	private Trip[] trips = new Trip[] {};
 
 	public static UserBuilder aUser() {
 		return new UserBuilder();
@@ -28,13 +28,13 @@ public class UserBuilder {
 		return user;
 	}
 
-	public void addTripsTo(User user) {
+	private void addTripsTo(User user) {
 		for (Trip trip : trips) {
 			user.addTrip(trip);
 		}
 	}
 
-	public void addFriendsTo(User user) {
+	private void addFriendsTo(User user) {
 		for (User friend : friends) {
 			user.addFriend(friend);
 		}
