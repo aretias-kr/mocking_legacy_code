@@ -8,4 +8,8 @@ public class TripDAO {
 		throw new RuntimeException("Not implements yet");
 	}
 
+	public List<Trip> tripsBy(User user) {
+		return TripDAO.findTripsByUser(user);
+	}
+
 }

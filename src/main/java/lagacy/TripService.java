@@ -4,22 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TripService {
-	public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
-		if (getLoggedInUser() == null) {
+	private TripDAO tripDAO;
+	
+	public List<Trip> getTripsByUser(User user, User loggedInUser) throws UserNotLoggedInException {
+		if (loggedInUser == null) {
 			throw new UserNotLoggedInException();
 		}
 		
-		if (user.isFriendsWith(getLoggedInUser())) {
+		if (user.isFriendsWith(loggedInUser)) {
 			return findTripsByUser(user);
 		}
+		return noTrips();
+	}
+
+	private List<Trip> noTrips() {
 		return new ArrayList<Trip>();
 	}
 
-	protected List<Trip> findTripsByUser(User user) {
-		return TripDAO.findTripsByUser(user);
-	}
-
-	protected User getLoggedInUser() {
-		return UserSession.getInstace().getLoggedUser();
+	private List<Trip> findTripsByUser(User user) {
+		return tripDAO.tripsBy(user);
 	}
 }
