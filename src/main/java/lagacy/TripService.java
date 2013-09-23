@@ -12,16 +12,12 @@ public class TripService {
 		}
 		
 		if (user.isFriendsWith(loggedInUser)) {
-			return findTripsByUser(user);
+			return tripDAO.tripsBy(user);
 		}
 		return noTrips();
 	}
 
 	private List<Trip> noTrips() {
 		return new ArrayList<Trip>();
-	}
-
-	private List<Trip> findTripsByUser(User user) {
-		return tripDAO.tripsBy(user);
 	}
 }
