@@ -8,6 +8,15 @@ public class User {
 	private List<User> friends = new ArrayList<User>();
 	private List<Trip> trips = new ArrayList<Trip>();
 
+	public boolean isFriendWith(User loggedUser) {
+		for (User friend : getFriends()) {
+			if (friend.equals(loggedUser)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public List<User> getFriends() {
 		return friends;
 	}
